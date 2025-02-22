@@ -1,0 +1,56 @@
+/* home.css */
+.hero-section {
+    background: linear-gradient(135deg, var(--royal-blue), var(--sky-blue));
+    color: var(--white);
+    text-align: center;
+    padding: 60px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.hero-btn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: var(--navy-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.hero-btn:hover {
+    background-color: var(--royal-blue);
+    transform: scale(1.05);
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.feature {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+}
+
+.feature h3 {
+    color: var(--royal-blue);
+}
