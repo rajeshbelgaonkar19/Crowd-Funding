@@ -1,12 +1,15 @@
 import { signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../firebase/firebaseConfig";
+import { auth, provider } from "../firebase/firebaseConfig"; // Ensure provider is correctly imported
+import { useAuth } from "../context/AuthContext";
 
-const GoogleSignIn = ({ onSuccess }) => {
+const GoogleSignIn = () => {
+    const { setUser } = useAuth(); // Get setUser from AuthContext
+
     const handleGoogleSignIn = async () => {
         try {
-            const result = await signInWithPopup(auth, googleProvider);
+            const result = await signInWithPopup(auth, provider);
             console.log("User signed in:", result.user);
-            if (onSuccess) onSuccess(result.user);
+            setUser(result.user); // Store user in context for global access
         } catch (error) {
             console.error("Google Sign-In Error:", error.message);
         }

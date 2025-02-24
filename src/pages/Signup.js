@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import GoogleSignIn from "../components/GoogleSignIn";
 import "./Signup.css"; // Import the CSS file
 
 function Signup() {
@@ -10,13 +11,18 @@ function Signup() {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    // Email & Password Signup
+    // Email & Password Signup with Verification
     const handleSignup = async (e) => {
         e.preventDefault();
         setError("");
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            navigate("/"); // Redirect to home after signup
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            
+            // Send email verification
+            await sendEmailVerification(user);
+            alert("Verification email sent! Please verify your email before logging in.");
+            navigate("/login"); // Redirect to login page after signup
         } catch (error) {
             setError(error.message);
         }
@@ -25,8 +31,15 @@ function Signup() {
     // Google Sign-Up
     const handleGoogleSignup = async () => {
         try {
-            await signInWithPopup(auth, provider);
-            navigate("/"); // Redirect to home after signup
+            const userCredential = await signInWithPopup(auth, provider);
+            const user = userCredential.user;
+            
+            // Ensure Google account has a verified email
+            if (user.emailVerified) {
+                navigate("/"); // Redirect to home if verified
+            } else {
+                alert("Please verify your email before accessing the platform.");
+            }
         } catch (error) {
             setError(error.message);
         }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import GoogleSignIn from "../components/GoogleSignIn"; // ✅ Add this line here
 import "./Login.css"; // Ensure a CSS file is created for better styling
 
 function Login() {
@@ -14,7 +15,14 @@ function Login() {
         e.preventDefault();
         setError("");
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            
+            if (!user.emailVerified) {
+                setError("Please verify your email before logging in.");
+                return;
+            }
+            
             navigate("/"); // Redirect to home after login
         } catch (error) {
             setError(error.message);
@@ -24,7 +32,14 @@ function Login() {
     const handleGoogleSignIn = async () => {
         setError("");
         try {
-            await signInWithPopup(auth, provider);
+            const userCredential = await signInWithPopup(auth, provider);
+            const user = userCredential.user;
+            
+            if (!user.email) {
+                setError("Google account verification failed.");
+                return;
+            }
+            
             navigate("/"); // Redirect to home after login
         } catch (error) {
             setError(error.message);
