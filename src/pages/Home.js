@@ -11,6 +11,14 @@ function Home() {
                 <button className="hero-btn">Explore Campaigns</button>
             </div>
 
+            {/* Fundraising Statistics */}
+            <div className="fund-stats">
+                <p>💰 Funds Raised: $5,000,000</p>
+                <p>🙌 Active Donors: 10,000</p>
+                <p>🎯 Successful Campaigns: 1,000</p>
+                <button className="more-details-btn">More Details</button>
+            </div>
+
             {/* Features Section */}
             <div className="features">
                 <div className="feature">
