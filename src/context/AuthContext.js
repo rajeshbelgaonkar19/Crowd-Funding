@@ -6,10 +6,12 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true); // Ensures the app does not flicker while checking auth status
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
+            setLoading(false);
         });
         return () => unsubscribe();
     }, []);
@@ -27,6 +29,7 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         try {
             await signOut(auth);
+            setUser(null); // Ensures UI updates correctly after logout
         } catch (error) {
             console.error("Logout Error:", error.message);
         }
@@ -34,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ user, googleSignIn, logout }}>
-            {children}
+            {!loading && children} {/* Prevent rendering UI until auth state is checked */}
         </AuthContext.Provider>
     );
 };
