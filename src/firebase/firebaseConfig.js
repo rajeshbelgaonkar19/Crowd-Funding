@@ -5,13 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 
 // Your Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyArHhqjIA6fzN6GIJMWDt2_rOPiDpB-340",
-    authDomain: "crowd-funding-7bb09.firebaseapp.com",
-    projectId: "crowd-funding-7bb09",
-    storageBucket: "crowd-funding-7bb09.appspot.com",
-    messagingSenderId: "359842087742",
-    appId: "1:359842087742:web:49064e463bfd9c268ca26f",
-    measurementId: "G-EYF57TH5N2"
+    // APIKEY KEPT PRIVATE AND UPDATED
 };
 
 // Initialize Firebase
